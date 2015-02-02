@@ -1,12 +1,12 @@
 function widget:GetInfo()
     return {
-        name      = "Passive builders v1",
+        name      = "Passive builders v2",
         desc      = "All builders + factories (except commander) are set to Passive mode",
         author    = "[teh]decay",
         date      = "11 jan 2015",
         license   = "The BSD License",
         layer     = 0,
-        version   = 1,
+        version   = 2,
         enabled   = true  -- loaded by default
     }
 end
@@ -14,7 +14,7 @@ end
 -- project page on github: https://github.com/SpringWidgets/passive-builders
 
 -- Changelog:
--- v2
+-- v2 [teh]decay Fixed bug with rezz bots and spys
 
 local CMD_PASSIVE       = 34571
 local spGetMyTeamID     = Spring.GetMyTeamID
@@ -22,8 +22,8 @@ local spGetTeamUnits    = Spring.GetTeamUnits
 local spGetUnitDefID    = Spring.GetUnitDefID
 local spGiveOrderToUnit = Spring.GiveOrderToUnit
 
-local function isBuilder(unitDefID)
-    return unitDefID and unitDefID.isBuilder and not unitDefID.canManualFire
+local function isBuilder(ud)
+    return ud and ud.isBuilder and not ud.canManualFire and ud.canAssist
 end
 
 local function passivateBuilder(unitID)
